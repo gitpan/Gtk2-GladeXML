@@ -1,3 +1,10 @@
+libgtk2-gladexml-perl (0.93-1) unstable; urgency=low
+
+  * Updated to latest CVS, version 0.93.
+  * Custom widgets now work.
+
+ -- muppet <scott at asofyet dot org>  Thu, 09 Oct 2003 23:51:59 -0400
+
 libgtk2-gladexml-perl (0.90-1) unstable; urgency=low
 
   * Added debian packaging files to cvs.

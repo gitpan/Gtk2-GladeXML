@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/Makefile.PL,v 1.11 2003/09/21 23:50:30 muppetman Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/Makefile.PL,v 1.13 2003/10/10 03:54:34 muppetman Exp $
 #
 
 use 5.008;
@@ -11,8 +11,8 @@ use ExtUtils::MakeMaker;
 our %build_reqs = (
 	'perl-ExtUtils-Depends'   => '0.1',
 	'perl-ExtUtils-PkgConfig' => '0.1',
-	'perl-Glib'               => '1.00rc2',
-	'perl-Gtk2'               => '1.00rc2',
+	'perl-Glib'               => '1.00',
+	'perl-Gtk2'               => '1.00',
 	'Glade'                   => '2.0.0',
 );
 
@@ -116,7 +116,7 @@ rpms/:
 SUBSTITUTE=$substitute
 
 perl-\$(DISTNAME).spec: perl-\$(DISTNAME).spec.in \$(VERSION_FROM) Makefile
-	\$(SUBSTITUTE) \$+ > \$@
+	\$(SUBSTITUTE) \$< > \$@
 
 dist-rpms: Makefile dist perl-\$(DISTNAME).spec rpms/
 	cp \$(DISTNAME)-\$(VERSION).tar.gz rpms/SOURCES/

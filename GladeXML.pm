@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.8 2003/09/21 23:50:30 muppetman Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.10 2003/10/10 03:54:34 muppetman Exp $
 #
 # Based strongly on gtk-perl's GladeXML
 #
@@ -16,7 +16,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.92';
+our $VERSION = '0.93';
 
 sub dl_load_flags { 0x01 }
 
@@ -70,7 +70,7 @@ sub _autoconnect_helper
 	else
 	{
 		$handler = $package.'::'.$handler_name
-			if( $package && $handler !~ /;;/ );
+			if( $package && $handler !~ /::/ );
 	}
 
 	my $func = defined($after) ? 'signal_connect_after' :
@@ -100,8 +100,6 @@ sub signal_autoconnect_from_package
 	my $self = shift;
 	my $package = shift;
 
-	$package = $package || 'main';
-	
 	($package, undef, undef) = caller() unless $package;
 	$self->signal_autoconnect(\&_autoconnect_helper, $package);
 }

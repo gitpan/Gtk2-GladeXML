@@ -1,6 +1,6 @@
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/README,v 1.7 2003/09/21 23:50:30 muppetman Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/README,v 1.8 2003/10/10 03:54:34 muppetman Exp $
 
-Gtk2::GladeXML version 0.92
+Gtk2::GladeXML version 0.93
 ===========================
 
 This package adds perl support for Glade 2.x to Gtk2-Perl.
@@ -49,8 +49,8 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   perl >= 5.8.0
-  Glib >= 1.00rc2 (perl module)
-  Gtk2 >= 1.00rc2 (perl module)
+  Glib >= 1.00 (perl module)
+  Gtk2 >= 1.00 (perl module)
   libglade-2.0 (C library)
 
 In order to build it from source, you'll also need
