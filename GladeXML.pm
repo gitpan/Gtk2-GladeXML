@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.13 2003/11/12 14:58:17 pcg Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.18 2004/03/30 04:56:47 muppetman Exp $
 #
 # Based strongly on gtk-perl's GladeXML
 #
@@ -16,7 +16,12 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.94';
+our $VERSION = '1.00';
+
+sub import {
+	my $class = shift;
+	$class->VERSION (@_);
+}
 
 sub dl_load_flags { 0x01 }
 
@@ -134,31 +139,33 @@ __END__
 
 =head1 NAME
 
-Gtk2::GladeXML - Perl wrappers for the Gtk2::GladeXML utilities.
+Gtk2::GladeXML - Create user interfaces directly from Glade XML files.
 
 =head1 SYNOPSIS
 
   use Gtk2 -init;
   use Gtk2::GladeXML;
   
-  $gladxml = Gtk2::GladeXML->new('example.glade');
+  $gladexml = Gtk2::GladeXML->new('example.glade');
   $gladexml->signal_autoconnect_from_package('main');
   $quitbtn = $gladexml->get_widget('Quit'); 
   Gtk2->main;
 
 =head1 ABSTRACT
 
-Provides mechinisms for instantiating and utilization of user interfaces
-created with glade-2.
+Gtk2::GladeXML allows Perl programmers to use libglade, a C library which
+generates graphical user interfaces directly from the XML output of the
+Glade user interface designer.
 
 =head1 DESCRIPTION
 
-Glade is open source project that provides utilities for rapid user interface
-development. After designing an application with glade-2 the layout and
-configuration is saved in a XML formatted file. libglade is a library to load
-and use files of this particular XML format at application run time. This
-module is a set of mappings of libglade. More specifically the gladexml portion
-of libglade. These mappings allow access to libglade from PERL code.  Better
+Glade is a free user interface builder for GTK+ and GNOME.  After designing
+a user interface with glade-2 the layout and configuration are saved in an
+XML file.  libglade is a library which knows how to build and hook up the
+user interface described in the Glade XML file at application run time.
+
+This extension module binds libglade to Perl so you can create and manipulate
+user interfaces in Perl code in conjunction with Gtk2 and even Gnome2.  Better
 yet you can load a file's contents into a PERL scalar do a few magical regular
 expressions to customize things and the load up the app. It doesn't get any
 easier. 
@@ -223,13 +230,33 @@ can't use global callbacks.
 
 =back
 
+=head1 FAQ
+
+=over
+
+=item Where is the option to generate Perl source in Glade?
+
+Glade itself only creates the XML description, and relies on extra converter
+programs to write source code; only a few converters are widely popular.
+
+In general, however, you don't want to generate source code for a variety of
+reasons, mostly to do with maintainability.  This message on the glade-devel
+list explains it best:
+
+http://lists.ximian.com/archives/public/glade-devel/2003-February/000015.html
+
+=back
+
 =head1 SEE ALSO
 
-perl(1), Glib(1), Gtk2(1), libglade.
+L<perl>(1), L<Glib>(3pm), L<Gtk2>(3pm)
+
+The Libglade Reference Manual at http://developer.gnome.org/doc/API/2.0/libglade/
 
 =head1 AUTHOR
 
-Ross McFarland <rwmcfa1 at neces dot com>, Marc Lehmann <pcg@goof.com>.
+Ross McFarland <rwmcfa1 at neces dot com>, Marc Lehmann <pcg@goof.com>,
+muppet <scott at asofyet dot org>.
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,5 +1,5 @@
 /*
- * $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.xs,v 1.10 2003/11/12 14:36:14 pcg Exp $
+ * $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.xs,v 1.11 2003/11/29 14:53:29 muppetman Exp $
  *
  */
 
@@ -90,7 +90,6 @@ BOOT:
 ##  GladeXML *glade_xml_new (const char *fname, const char *root, const char *domain)
 GladeXML_ornull *
 glade_xml_new (class, filename, root=NULL, domain=NULL)
-        SV *class
 	GPerlFilename filename
 	const char *root
 	const char *domain

@@ -1,3 +1,70 @@
+2004/03/30 00:17 (-0500) muppetman
+
+	* README, NEWS, GladeXML.pm: stable release 1.00
+
+	* GladeXML.pm: add import version-checking, fix pod links.
+
+	* Makefile.PL: fix requirements.  don't use postamble_docs, we don't
+	have any XS that needs documenting.
+
+2004/03/19 03:10 (-0500) muppetman
+
+	* GladeXML.pm, README: beta release 0.96
+
+	A NEWS 
+	* MANIFEST:
+	  add a news file
+
+	* Makefile.PL: cleanup
+
+2004/02/26 17:37 (-0500) muppetman
+
+	* README: fix the spelling of license; update the sandbox instructions.
+
+2004/02/12 19:00 (-0500) muppetman
+
+	* Makefile.PL: add_headers is a noop in ExtUtils::Depends >= 0.2,
+	and doesn't do anything useful that install doesn't do in < 0.2,
+	so take it out.  this avoids some noise on stderr as well.
+
+2004/01/02 15:45 (-0500) rwmcfa1
+
+	* Makefile.PL: removed runtime_reqs stuff, replaced by the pkg-config 
+	trick. use Glib::MakeHelper.
+
+	* perl-Gtk2-GladeXML.spec.in: use pkg-config for Requires version
+
+2004/01/02 15:45 (-0500) rwmcfa1
+
+	* examples/README: initial import
+
+	* MANIFEST: updates
+
+2004/01/09 00:10 (-0500) muppetman
+
+	* GladeXML.pm, README: release 0.95
+
+	* Makefile.PL: now strict-safe.  remove unused stuff.  actually create
+	the DATE subst that the specfile wants.
+
+2004/01/07 14:58 pcg
+
+        * GladeXML.pm: fix typoe reported by Florian Ragwitz :).
+
+2003/12/29 16:32 (-0500) rwmcfa1
+
+	* perl-Gtk2-GladeXML.spec.in: use the new DATE replacement in
+	conjunction with VERSION to create the changlog on the fly, which is
+	better.
+
+2003/12/03 23:57 muppetman
+
+	* GladeXML.pm: update the docs.
+
+2003/11/12 14:05 rwmcfa1
+
+	* examples/*: import of some excellent examples by Bruce Alderson.
+
 2003/11/12 14:05 pcg
 
 	* GladeXML.xs: use GPerlFilename.

@@ -4,11 +4,27 @@ GladeXML.pm
 GladeXML.xs
 LICENSE
 MANIFEST			This list of files
-META.yml                                Module meta-data in YAML
 MANIFEST.SKIP
+META.yml			Module meta-data in YAML
 Makefile.PL
+NEWS
 README
+examples/README
+examples/TODO
+examples/fileman.glade
+examples/fileman.gladep
+examples/fileman.pl
+examples/hello-world.glade
+examples/hello-world.gladep
+examples/hello-world.pl
+examples/progress.glade
+examples/progress.gladep
+examples/progress.pl
+examples/scribble.glade
+examples/scribble.gladep
+examples/scribble.pl
 gladexmlperl.h
 gladexmlperl.typemap
+perl-Gtk2-GladeXML.spec.in
 t/0.GladeXML.t
 t/example.glade
