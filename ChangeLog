@@ -1,3 +1,11 @@
+2005/01/11 21:33 (-0500) rwmcfa1
+
+	* GladeXML.pm, NEWS, README: stable bugfix release 1.003
+
+2004/11/28 12:20 (-0500) rwmcfa1
+
+	* GladeXML.pm, NEWS, README: stable bugfix release 1.002
+
 2004/11/28 12:20 (-0500) rwmcfa1
 
 	* GladeXML.xs: added _ornull's to new functions where appropriate.

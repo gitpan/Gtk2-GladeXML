@@ -1,6 +1,6 @@
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/README,v 1.14 2004/09/16 03:16:44 muppetman Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/README,v 1.16 2005/01/12 02:33:55 rwmcfa1 Exp $
 
-Gtk2::GladeXML version 1.001
+Gtk2::GladeXML version 1.003
 ============================
 
 This package adds perl support for Glade 2.x to Gtk2-Perl.

@@ -41,7 +41,7 @@ make OPTIMIZE="$RPM_OPT_FLAGS"
 make test
 
 %install
-%makeinstall install-examples
+%makeinstall
  
 [ -x /usr/lib/rpm/brp-compress ] && /usr/lib/rpm/brp-compress
 

@@ -1,3 +1,13 @@
+Overview of Changes in Gtk2::GladeXML 1.003
+===========================================
+
+* none, last rel tarballs had uncommited changes
+
+Overview of Changes in Gtk2::GladeXML 1.002
+===========================================
+
+* allow undef/NULL in new functions where appropriate
+
 Overview of Changes in Gtk2::GladeXML 1.001
 ===========================================
 
