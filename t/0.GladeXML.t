@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/t/0.GladeXML.t,v 1.4 2003/05/22 23:21:42 rwmcfa1 Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/t/0.GladeXML.t,v 1.5 2003/09/17 17:09:52 rwmcfa1 Exp $
 #
 
 #########################
@@ -7,14 +7,21 @@
 # 	- rm
 #########################
 
+use Test::More;
+use Gtk2;
+
+if( Gtk2->init_check )
+{
+	plan tests => 4;
+	require_ok('Gtk2::GladeXML');
+}
+else
+{
+	plan skip_all =>
+		'Gtk2->init_check failed, probably unable to open DISPLAY';
+}
+
 #########################
-
-use Test::More tests => 4;
-BEGIN { use_ok('Gtk2::GladeXML') };
-
-#########################
-
-use Data::Dumper;
 
 sub gtk_main_quit
 {

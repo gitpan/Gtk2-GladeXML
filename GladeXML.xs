@@ -1,5 +1,5 @@
 /*
- * $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.xs,v 1.7 2003/07/01 01:25:04 rwmcfa1 Exp $
+ * $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.xs,v 1.8 2003/07/05 07:14:36 pcg Exp $
  *
  * Based strongly on gtk-perl's GladeXML
  * 
@@ -237,7 +237,7 @@ glade_xml_get_widget_prefix (self, name)
 
 ## probably shouldn't use this unless you know what you're doing
 ##  gchar *glade_xml_relative_file (GladeXML *self, const gchar *filename)
-gchar *
+gchar_own *
 glade_xml_relative_file (self, filename)
 	GladeXML    *self
 	const gchar *filename

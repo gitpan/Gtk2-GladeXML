@@ -1,0 +1,20 @@
+Source: libgtk2-gladexml-perl
+Section: perl
+Priority: optional
+Build-Depends: debhelper (>= 3.0.18), perl (>= 5.8.0-7), libgtk2-perl, libglib-perl (>= 0.90)
+Maintainer: James Curbo <hannibal@adtrw.org>
+Standards-Version: 3.6.0
+
+Package: libgtk2-gladexml-perl
+Architecture: any
+Depends: ${perl:Depends}, ${shlibs:Depends}, ${misc:Depends}, libgtk2-perl (>=0.90), libglib-perl (>=0.90)
+Description:  Perl wrappers for the Gtk2::GladeXML utilities
+ Glade is open source project that provides utilities for rapid user interface
+ development. After designing an application with glade-2 the layout and
+ configuration is saved in a XML formatted file. libglade is a library to load
+ and use files of this particular XML format at application run time. This
+ module is a set of mappings of libglade. More specifically the gladexml portion
+ of libglade. These mappings allow access to libglade from PERL code.  Better
+ yet you can load a file's contents into a PERL scalar do a few magical regular
+ expressions to customize things and the load up the app. It doesn't get any
+ easier.

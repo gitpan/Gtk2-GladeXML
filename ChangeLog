@@ -1,3 +1,50 @@
+2003/09/21 10:49 muppetman
+
+	* GladeXML.pm Makefile.PL README: updated for 0.92 release
+
+2003/09/17 10:44 rwmcfa1
+
+	* Makefile.PL: ExtUtils::PkgConfig can now deal with version 
+	requirements using pkg-config's interface, make use of it.
+
+2003/09/16 23:50 rwmcfa1
+
+	* Makefile.PL, perl-*spec.in: somewhat automated versioning system 
+	implemented for depenancy modules
+
+2003/09/15 22:26 rwmcfa1
+
+	* Makefile.PL: spec file dependancies improved
+
+2003/09/06 19:23 rwmcfa1
+
+	* Makefile.PL: dist-rpms build target added
+
+	* perl-Gtk2-GladeXML.spec.in: initial import
+
+2003/08/15 11:16 muppetman
+
+	* debian/*, MANIDEST, AUTHORS: patch from James Curbo adds debian
+	packaging files.
+
+	* GladeXML.pm, README: we haven't changed in three weeks, so let's go
+	to 0.90 and try to get more bug reports.
+
+2003/07/25 10:21 muppetman
+
+	* GladeXML.pm, README: bump version to 0.28
+
+2003/07/05 07:13 rwmcfa1
+
+	* Makefile.PL: put in a pre-req. of Glib >= 0.90, due to using
+	gchar_own
+
+2003/07/05 07:13 pcg
+
+	* META.xml: added.
+
+        * GladeXML.xs: use gchar_own to avoid memleak (untested).
+
 2003/07/04 11:45 muppetman
 
 	* GladeXML.pm: bump to 0.26 for release

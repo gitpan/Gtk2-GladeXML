@@ -1,0 +1,20 @@
+libgtk2-gladexml-perl (0.90-1) unstable; urgency=low
+
+  * Added debian packaging files to cvs.
+  * Bumped version to 0.90 for beta series.
+
+ -- muppet <scott@asofyet.org>  Fri Aug 15 11:24:18 EDT 2003
+
+libgtk2-gladexml-perl (0.28-2) unstable; urgency=low
+
+  * Updated to latest CVS.
+  * Fixed some packaging issues.
+
+ -- James Curbo <hannibal@adtrw.org>  Sun, 10 Aug 2003 18:08:22 -0500
+
+libgtk2-gladexml-perl (0.28-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- James Curbo <hannibal@adtrw.org>  Wed,  6 Aug 2003 18:27:56 -0500
+
