@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.23 2005/01/12 02:33:55 rwmcfa1 Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.24 2005/01/18 01:47:46 rwmcfa1 Exp $
 #
 # Based strongly on gtk-perl's GladeXML
 #
@@ -16,7 +16,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '1.003';
+our $VERSION = '1.004';
 
 sub import {
 	my $class = shift;

@@ -1,3 +1,8 @@
+Overview of Changes in Gtk2::GladeXML 1.004
+===========================================
+
+* none, don't do make disttest dist or tarballs will be invalid
+
 Overview of Changes in Gtk2::GladeXML 1.003
 ===========================================
 
