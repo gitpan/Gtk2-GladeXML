@@ -1,5 +1,5 @@
 /*
- * $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.xs,v 1.9 2003/10/07 02:48:00 muppetman Exp $
+ * $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.xs,v 1.10 2003/11/12 14:36:14 pcg Exp $
  *
  */
 
@@ -77,7 +77,7 @@ glade_custom_widget(
 		int2
 	);
 	/* dup refs, unset unrefs. */
-	retval = g_value_dup_object(&return_value);
+	retval = (GtkWidget *)g_value_dup_object(&return_value);
 	g_value_unset(&return_value);
 	return retval;
 }
@@ -89,12 +89,13 @@ BOOT:
 
 ##  GladeXML *glade_xml_new (const char *fname, const char *root, const char *domain)
 GladeXML_ornull *
-glade_xml_new (class, fname, root=NULL, domain=NULL)
-	const char *fname
+glade_xml_new (class, filename, root=NULL, domain=NULL)
+        SV *class
+	GPerlFilename filename
 	const char *root
 	const char *domain
     C_ARGS:
-	fname, root, domain
+	filename, root, domain
 
 ##  GladeXML *glade_xml_new_from_buffer (const char *buffer, int size, const char *root, const char *domain)
 GladeXML_ornull *
@@ -193,7 +194,7 @@ glade_xml_get_widget_prefix (self, name)
 gchar_own *
 glade_xml_relative_file (self, filename)
 	GladeXML    *self
-	const gchar *filename
+	GPerlFilename filename
 
 MODULE = Gtk2::GladeXML	PACKAGE = Gtk2::Glade	PREFIX = glade_
 
@@ -216,11 +217,9 @@ glade_set_custom_handler (class, callback, callback_data=NULL)
 		G_TYPE_INT       /*integer 2*/
 	};
     CODE:
-	if (real_callback) {
+	if (real_callback)
 		/* we're being called again... */
 		gperl_callback_destroy (real_callback);
-		real_callback = NULL;
-	}
 	real_callback = gperl_callback_new(
 		callback,       /*perl function to treat as a callback*/
 		callback_data,  /*extra data to pass to callback*/

@@ -8,11 +8,6 @@ META.yml                                Module meta-data in YAML
 MANIFEST.SKIP
 Makefile.PL
 README
-debian/changelog
-debian/compat
-debian/control
-debian/copyright
-debian/rules
 gladexmlperl.h
 gladexmlperl.typemap
 t/0.GladeXML.t

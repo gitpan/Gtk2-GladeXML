@@ -1,3 +1,13 @@
+2003/11/12 14:05 pcg
+
+	* GladeXML.xs: use GPerlFilename.
+        * GladeXML.pm: improve docs, add a convinience method, bump version.
+
+2003/11/11 01:01 muppetman
+
+	* MANIFEST, debian/*: remove debian packaging files, since having
+	them in the upstream dist makes things difficult for the packagers
+
 2003/10/09 23:52 muppetman
 
 	* Makefile.PL, GladeXML.pm, README, META.yml, debian/changelog:

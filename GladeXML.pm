@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.10 2003/10/10 03:54:34 muppetman Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.13 2003/11/12 14:58:17 pcg Exp $
 #
 # Based strongly on gtk-perl's GladeXML
 #
@@ -16,7 +16,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '0.93';
+our $VERSION = '0.94';
 
 sub dl_load_flags { 0x01 }
 
@@ -73,17 +73,14 @@ sub _autoconnect_helper
 			if( $package && $handler !~ /::/ );
 	}
 
-	my $func = defined($after) ? 'signal_connect_after' :
-				  'signal_connect';
-	if( $connect_object )
-	{
+	my $func = defined($after) ? 'signal_connect_after'
+				   : 'signal_connect';
+	if( $connect_object ) {
 		# b/c signal_connect already keeps the user_data alive
 		# we don't have to worry about signal_connect_object,
 		# we just pass the object in as the user_data
 		$object->$func($signal_name => $handler, $connect_object);
-	}
-	else
-	{
+	} else {
 		$object->$func($signal_name => $handler, $signal_data);
 	}
 
@@ -104,9 +101,36 @@ sub signal_autoconnect_from_package
 	$self->signal_autoconnect(\&_autoconnect_helper, $package);
 }
 
+sub signal_autoconnect_all {
+	my ($self, %handler) = @_;
+        $self->signal_autoconnect(sub {
+           my $handler_name = shift;
+           my $object = shift;
+           my $signal_name = shift;
+           my $signal_data = shift;
+           my $connect_object = shift;
+           my $after = shift;
+
+           my $handler = $handler{$handler_name}
+              or return;
+
+           no strict qw/refs/;
+
+           my $func = defined($after) ? 'signal_connect_after'
+                                      : 'signal_connect';
+           if ($connect_object) {
+                   # b/c signal_connect already keeps the user_data alive
+                   # we don't have to worry about signal_connect_object,
+                   # we just pass the object in as the user_data
+                   $object->$func($signal_name => $handler, $connect_object);
+           } else {
+                   $object->$func($signal_name => $handler, $signal_data);
+           }
+        });
+}
+
 1;
 __END__
-# Below is stub documentation for your module. You'd better edit it!
 
 =head1 NAME
 
@@ -162,21 +186,40 @@ domain for the xml file.
 Return the widget created by the XML file with NAME or undef if no such name
 exists.
 
-=item $gladexml->signal_autoconnect_from_package(PACKAGE)
+=item $gladexml->signal_autoconnect($callback[, $userdata])
+
+Iterates over all signals and calls the given callback:
+
+   sub example_cb {
+      my ($name, $widget, $signal, $signal_data, $connect, $after, $userdata) = @_;
+   }
+
+The following two convinience methods use this to provide a more
+convinient interface.
+
+=item $gladexml->signal_autoconnect_from_package([PACKAGE])
 
 Sets up the signal handling callbacks as specified in the glade XML data.
-Callbacks will need to have the exact name as specified in the XML data and be
-located in the provided package (or main if none is provided.) It is worth
-noting that callbacks you get for free in c such as gtk_main_quit will not
-exist in perl and must always be defined, for example:
+Callbacks will need to have the exact name as specified in the XML data
+and be located in the provided package (or the callers package if none is
+provided.) It is worth noting that callbacks you get for free in c such
+as gtk_main_quit will not exist in perl and must always be defined, for
+example:
 
   sub gtk_main_quit
   {
   	Gtk2->main_quit;
   }
 
-Otherwise behavior should be exactly as expected with the use of libglade from
-a c application. 
+Otherwise behavior should be exactly as expected with the use of libglade
+from a C application.
+
+=item $gladexml->signal_autoconnect_all (name => handler, ...)
+
+Iterates over all named signals and tries to connect them to the handlers
+specified as arguments (handlers not given as argument are being
+ignored). This is very handy when implementing your own widgets, where you
+can't use global callbacks.
 
 =back
 
@@ -186,7 +229,7 @@ perl(1), Glib(1), Gtk2(1), libglade.
 
 =head1 AUTHOR
 
-Ross McFarland E<lt>rwmcfa1 at neces dot comE<gt>
+Ross McFarland <rwmcfa1 at neces dot com>, Marc Lehmann <pcg@goof.com>.
 
 =head1 COPYRIGHT AND LICENSE
 
