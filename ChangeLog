@@ -1,0 +1,28 @@
+2003/07/04 11:45 muppetman
+
+	* GladeXML.pm: bump to 0.26 for release
+
+2003/06/30 21:15 rwmcfa1
+
+	* GladeXML.pm, GladeXML.xs, etc.: Got things ready for a beta
+	quality release. Added pod documentation...
+
+2003/06/20 11:28 muppetman
+
+	* README: fix some of the info that looks like it was never touched
+	after copying from Gtk2-Perl
+
+2003/05/27 20:36 rwmcfa1
+
+	* GladeXML.xs: a pass at the custom_handler stuff, very close to what's
+	in gtk-perl
+	
+2003/05/27 10:57 rwmcfa1
+
+	* GladeXML.pm: from what we can tell the method used to work around the
+	lack of signal_connect_object (which is irrelivent with gtk2-perl)
+	should be ok. this comments on the fact and cleans it up slightly.
+
+2003/05/26 22:09 rwmcfa1
+
+	* : ChangeLog created

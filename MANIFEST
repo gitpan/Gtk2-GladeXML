@@ -1,0 +1,13 @@
+AUTHORS
+ChangeLog
+GladeXML.pm
+GladeXML.xs
+LICENSE
+MANIFEST			This list of files
+MANIFEST.SKIP
+Makefile.PL
+README
+gladexmlperl.h
+gladexmlperl.typemap
+t/0.GladeXML.t
+t/example.glade
