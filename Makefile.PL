@@ -75,6 +75,6 @@ sub MY::postamble
 			$build_reqs{'perl-ExtUtils-PkgConfig'},
 		'PERL_GLIB' => $build_reqs{'perl-Glib'},
 		'PERL_GTK' => $build_reqs{'perl-Gtk2'},
-	       );
+	       )
+             . Glib::MakeHelper->postamble_installs (qw/examples/);
 }
-

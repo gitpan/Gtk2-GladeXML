@@ -1,3 +1,16 @@
+2004/11/28 12:20 (-0500) rwmcfa1
+
+	* GladeXML.xs: added _ornull's to new functions where appropriate.
+	default value of NULL on signal_connect_full. bug found by: Martin G.
+	http://bugzilla.gnome.org/show_bug.cgi?id=159184
+
+2004/10/24 11:55 (-0400) rwmcfa1
+
+	* MANIFEST.SKIP: updates
+
+	* perl-Gtk2-GladeXML.spec.in: new scheme that addresses x86_64 problems
+	found by Carl Nygard
+
 2004/09/15 23:14 (-0400) muppet
 
 	* GladeXML.pm, NEWS, README: stable bugfix release 1.001

@@ -16,7 +16,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '1.001';
+our $VERSION = '1.002';
 
 sub import {
 	my $class = shift;

@@ -1,5 +1,5 @@
 /*
- * $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.xs,v 1.11 2003/11/29 14:53:29 muppetman Exp $
+ * $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.xs,v 1.12 2004/11/28 17:24:36 rwmcfa1 Exp $
  *
  */
 
@@ -91,8 +91,8 @@ BOOT:
 GladeXML_ornull *
 glade_xml_new (class, filename, root=NULL, domain=NULL)
 	GPerlFilename filename
-	const char *root
-	const char *domain
+	const char_ornull *root
+	const char_ornull *domain
     C_ARGS:
 	filename, root, domain
 
@@ -100,8 +100,8 @@ glade_xml_new (class, filename, root=NULL, domain=NULL)
 GladeXML_ornull *
 glade_xml_new_from_buffer (class, buffer, root=NULL, domain=NULL)
 	SV         *buffer
-	const char *root
-	const char *domain
+	const char_ornull *root
+	const char_ornull *domain
     PREINIT:
 	int   len;
 	char *p;
@@ -153,7 +153,7 @@ glade_xml_signal_autoconnect (self, func, user_data=NULL)
 ## probably shouldn't use this unless you know what you're doing
 ##  void glade_xml_signal_connect_full (GladeXML *self, const gchar *handler_name, GladeXMLConnectFunc func, gpointer user_data)
 void
-glade_xml_signal_connect_full (self, handler_name, func, user_data)
+glade_xml_signal_connect_full (self, handler_name, func, user_data=NULL)
 	GladeXML            *self
 	const gchar         *handler_name
 	SV                  *func
