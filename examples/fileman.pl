@@ -27,6 +27,7 @@
 use strict;
 use warnings;
 
+use File::Spec; # portable path manipulations
 use Gtk2 '-init'; # auto-initialize Gtk2
 use Gtk2::GladeXML;
 use Gtk2::SimpleList;   # easy wrapper for list views
@@ -189,12 +190,9 @@ sub refresh_fileview {
 # Change to parent directory
 #
 sub up_dir {
-
-    $upd = $cwd;
-    $upd =~ s/[^\/]+?$//; # FIXME 
-    $upd =~ s/\/$//;
-
-    ch_dir($upd);
+    my @dirs = File::Spec->splitdir ($cwd);
+    pop @dirs;
+    ch_dir(File::Spec->catdir(@dirs));
 }
 
 #----------------------------------------------------------------------
@@ -202,7 +200,7 @@ sub up_dir {
 #   * Updates file-view, location, and selection
 #
 sub ch_dir {
-    my $newdir = shift;
+    my $newdir = File::Spec->canonpath (shift);
 
     return 0 unless -d $newdir; # only if it exists
     return 0 unless $newdir ne $cwd; # only on changes

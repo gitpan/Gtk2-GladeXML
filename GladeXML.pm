@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.18 2004/03/30 04:56:47 muppetman Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.21 2004/09/16 03:16:44 muppetman Exp $
 #
 # Based strongly on gtk-perl's GladeXML
 #
@@ -16,17 +16,32 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '1.00';
+our $VERSION = '1.001';
 
 sub import {
 	my $class = shift;
 	$class->VERSION (@_);
 }
 
-sub dl_load_flags { 0x01 }
+sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
 bootstrap Gtk2::GladeXML $VERSION;
 
+sub _do_connect {
+	my ($object, $signal_name, $signal_data, $connect_object,
+	    $after, $handler) = @_;
+
+	my $func = $after ? 'signal_connect_after' : 'signal_connect';
+	# we get connect_object when we're supposed to call
+	# signal_connect_object, which ensures that the data (an object)
+	# lives as long as the signal is connected.  the bindings take
+	# care of that for us in all cases, so we only have signal_connect.
+	# if we get a connect_object, just use that instead of signal_data.
+	$object->$func($signal_name => $handler,
+		       $connect_object ? $connect_object : $signal_data);
+}
+
+# XXX used only by handler_connect, which appears to be derelict code
 sub _connect_helper
 {
 	my $handler_name = shift;
@@ -36,23 +51,9 @@ sub _connect_helper
 	my $connect_object = shift;
 	my $after = shift;
 	my $handler = shift;
-	my $data = shift;
 
-	no strict qw/refs/;
-
-	my $func = defined($after) ? 'signal_connect_after' :
-				  'signal_connect';
-	if( $connect_object )
-	{
-		# b/c signal_connect already keeps the user_data alive
-		# we don't have to worry about signal_connect_object,
-		# we just pass the object in as the user_data
-		$object->$func($signal_name => $handler, $connect_object);
-	}
-	else
-	{
-		$object->$func($signal_name => $handler, $signal_data);
-	}
+	_do_connect ($object, $signal_name, $signal_data, $connect_object,
+		     $after, $handler);
 }
 
 sub _autoconnect_helper
@@ -68,29 +69,18 @@ sub _autoconnect_helper
 	no strict qw/refs/;
 
 	my $handler = $handler_name;
-	if( ref $package )
-	{
+	if (ref $package) {
 		$handler = sub { $package->$handler_name(@_) };
-	}
-	else
-	{
+	} else {
 		$handler = $package.'::'.$handler_name
 			if( $package && $handler !~ /::/ );
 	}
 
-	my $func = defined($after) ? 'signal_connect_after'
-				   : 'signal_connect';
-	if( $connect_object ) {
-		# b/c signal_connect already keeps the user_data alive
-		# we don't have to worry about signal_connect_object,
-		# we just pass the object in as the user_data
-		$object->$func($signal_name => $handler, $connect_object);
-	} else {
-		$object->$func($signal_name => $handler, $signal_data);
-	}
-
+	_do_connect ($object, $signal_name, $signal_data, $connect_object,
+		     $after, $handler);
 }
 
+# XXX unused code?
 sub handler_connect {
 	my ($self, $hname, @handler) = @_;
 
@@ -119,18 +109,8 @@ sub signal_autoconnect_all {
            my $handler = $handler{$handler_name}
               or return;
 
-           no strict qw/refs/;
-
-           my $func = defined($after) ? 'signal_connect_after'
-                                      : 'signal_connect';
-           if ($connect_object) {
-                   # b/c signal_connect already keeps the user_data alive
-                   # we don't have to worry about signal_connect_object,
-                   # we just pass the object in as the user_data
-                   $object->$func($signal_name => $handler, $connect_object);
-           } else {
-                   $object->$func($signal_name => $handler, $signal_data);
-           }
+	   _do_connect ($object, $signal_name, $signal_data, $connect_object,
+			$after, $handler);
         });
 }
 
@@ -176,19 +156,19 @@ easier.
 
 =item $gladexml = Gtk2::GladeXML->new(GLADE_FILE, [ROOT, DOMAIN])
 
-Create a new GladeXML object by loading the data in GLADE_FILE. ROOT is an
+Create a new GladeXML object by loading the data in GLADE_FILE.  ROOT is an
 optional parameter that specifies a point (widget node) from which to start
-building. DOMAIN is an optional parameter that specifies the translation domain
-for the xml file.
+building.  DOMAIN is an optional parameter that specifies the translation
+domain for the xml file.
 
 =item $gladexml = Gtk2::GladeXML->new_from_buffer(BUFFER, [ROOT, DOMAIN])
 
-Create a new GladeXML object from the scalar string contained in BUFFER. ROOT
+Create a new GladeXML object from the scalar string contained in BUFFER.  ROOT
 is an optional parameter that specifies a point (widget node) from which to
-start building. DOMAIN is an optional parameter that specifies the translation
+start building.  DOMAIN is an optional parameter that specifies the translation
 domain for the xml file.
 
-=item $gladexml->get_widget(NAME)
+=item $widget = $gladexml->get_widget(NAME)
 
 Return the widget created by the XML file with NAME or undef if no such name
 exists.
@@ -201,15 +181,15 @@ Iterates over all signals and calls the given callback:
       my ($name, $widget, $signal, $signal_data, $connect, $after, $userdata) = @_;
    }
 
-The following two convinience methods use this to provide a more
-convinient interface.
+The following two convenience methods use this to provide a more
+convenient interface.
 
 =item $gladexml->signal_autoconnect_from_package([PACKAGE])
 
 Sets up the signal handling callbacks as specified in the glade XML data.
 Callbacks will need to have the exact name as specified in the XML data
-and be located in the provided package (or the callers package if none is
-provided.) It is worth noting that callbacks you get for free in c such
+and be located in the provided package (or the caller's package if none is
+provided).  It is worth noting that callbacks you get for free in c such
 as gtk_main_quit will not exist in perl and must always be defined, for
 example:
 
@@ -256,11 +236,11 @@ The Libglade Reference Manual at http://developer.gnome.org/doc/API/2.0/libglade
 =head1 AUTHOR
 
 Ross McFarland <rwmcfa1 at neces dot com>, Marc Lehmann <pcg@goof.com>,
-muppet <scott at asofyet dot org>.
+muppet <scott at asofyet dot org>.  Bruce Alderson provided several examples.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by the gtk2-perl team.
+Copyright 2003-2004 by the gtk2-perl team.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Library General Public

@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/t/0.GladeXML.t,v 1.5 2003/09/17 17:09:52 rwmcfa1 Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/t/0.GladeXML.t,v 1.6 2004/09/15 03:31:05 muppetman Exp $
 #
 
 #########################
@@ -12,7 +12,7 @@ use Gtk2;
 
 if( Gtk2->init_check )
 {
-	plan tests => 4;
+	plan tests => 3;
 	require_ok('Gtk2::GladeXML');
 }
 else
@@ -43,7 +43,6 @@ sub gtk_widget_show
 	$_[1]->show;
 }
 
-ok( Gtk2->init );
 
 ok( $gld = Gtk2::GladeXML->new('t/example.glade') );
 

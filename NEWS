@@ -1,3 +1,11 @@
+Overview of Changes in Gtk2::GladeXML 1.001
+===========================================
+
+* Fixed a bug that resulted in all signals being connected with
+  signal_connect_after.  The scribble example works now.
+* Lots of new tests.
+* Documentation and example code improvements.
+
 Overview of Changes in 1.0
 ==========================
 

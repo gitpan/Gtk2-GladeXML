@@ -1,7 +1,7 @@
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/README,v 1.13 2004/03/30 04:56:47 muppetman Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/README,v 1.14 2004/09/16 03:16:44 muppetman Exp $
 
-Gtk2::GladeXML version 1.00
-===========================
+Gtk2::GladeXML version 1.001
+============================
 
 This package adds perl support for Glade 2.x to Gtk2-Perl.
 
@@ -10,8 +10,6 @@ join gtk-perl-list@gnome.org at lists.gnome.org.
 
 Also have a look at the gtk2-perl website and sourceforge project page,
 http://gtk2-perl.sourceforge.net
-
-FIXME we have no other documentation, but we probably need it.
 
 
 INSTALLATION
@@ -63,7 +61,7 @@ In order to build it from source, you'll also need
 
 COPYRIGHT AND LICENSE
 
-Copyright (C) 2003 by rwmcfa1 at neces dot com
+Copyright (C) 2003-2004 by rwmcfa1 at neces dot com and the gtk2-perl team.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Library General Public

@@ -5,11 +5,6 @@
 #
 # Muppet's Gtk2-perl example ported to use GladeXML
 #
-#   ** This sample is broken **
-#
-#       FIXME: Expose event widget seems to be incorrect type
-#
-#
 #  This library is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU Lesser General Public
 #  License as published by the Free Software Foundation; either
@@ -136,10 +131,10 @@ sub expose_event {
   my $widget = shift;	# GtkWidget      *widget
   my $event = shift;	# GdkEventButton *event
 
-$drawing_area->window->clear_area(		     
-    $event->area->x, $event->area->y,
-    $event->area->width, $event->area->height);
-    
+  # for some reason, configure_event doesn't get called on this widget
+  # when the window is made visible in the glade file.  let's force it.
+  configure_event($widget) if not defined $pixmap;
+
   $drawing_area->window->draw_drawable (
 		     $widget->style->fg_gc($widget->state),
 		     $pixmap,

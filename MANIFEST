@@ -27,4 +27,6 @@ gladexmlperl.h
 gladexmlperl.typemap
 perl-Gtk2-GladeXML.spec.in
 t/0.GladeXML.t
+t/custom.t
 t/example.glade
+t/more.t

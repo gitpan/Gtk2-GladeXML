@@ -1,3 +1,39 @@
+2004/09/15 23:14 (-0400) muppet
+
+	* GladeXML.pm, NEWS, README: stable bugfix release 1.001
+
+	* examples/README, examples/TODO: the 'after' bugfix seems to
+	have fixed the scribble sample.
+
+2004/09/14 23:21 (-0400) muppet
+
+	* MANIFEST, t/custom.t, t/more.t: new regression tests should hit
+	quite a lot more of the API.
+
+	* GladeXML.pm: factor out common code into a helper function.
+	fix a few typos.
+
+	* t/0.GladeXML.t: the second Gtk2->init doesn't do anything,
+	removed.
+
+2004/09/14 17:30 (-0500) rwmcfa1
+
+	* GladeXML.pm: fix for major bug where all signals were being 
+	connected after. (muppet)
+
+2004/07/21 21:41 (-0500) muppetman
+
+	* examples/fileman.pl: use File::Spec instead of manual path string
+	manipulation when changing directores.  thanks to Fabrice, the
+	anonymous poster of #979248 in the sourceforge tracker.
+	http://sourceforge.net/tracker/index.php?func=detail&aid=979248&group_id=64773&atid=508620
+
+2004/07/19 18:15 (-0500) muppetman
+
+	* examples/scribble.pl: fix the bad arg in expose bug.  thanks to
+	Fabrice, the anonymous poster of #979266 in the sourceforge tracker.
+	http://sourceforge.net/tracker/index.php?func=detail&aid=979266&group_id=64773&atid=508620
+
 2004/03/30 00:17 (-0500) muppetman
 
 	* README, NEWS, GladeXML.pm: stable release 1.00
