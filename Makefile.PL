@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/Makefile.PL,v 1.18 2004/03/30 04:56:47 muppetman Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/Makefile.PL,v 1.19 2005/02/08 02:43:28 muppetman Exp $
 #
 
 use strict;
@@ -46,7 +46,7 @@ mkdir 'build', 0777;
 
 my $gladexml = ExtUtils::Depends->new ('GladeXML', 'Gtk2', 'Glib');
 $gladexml->set_inc ($pkgcfg{cflags});
-$gladexml->set_libs ($pkgcfg{libs});
+$gladexml->set_libs ($pkgcfg{libs} . $gladexml->_find_extra_libs);
 $gladexml->add_pm ('GladeXML.pm' => '$(INST_LIBDIR)/GladeXML.pm');
 $gladexml->add_xs ('GladeXML.xs');
 my $cwd = cwd();
@@ -78,3 +78,33 @@ sub MY::postamble
 	       );
 }
 
+
+# this probably needs to go into ExtUtils::Depends.
+sub ExtUtils::Depends::_find_extra_libs {
+	# right now we need this terrible hack only for windows.
+	return "" unless $^O eq "MSWin32";
+
+	my $self = shift;
+
+	# win32 does not allow unresolved symbols in libraries, but
+	# Gtk2 uses on symbols in the dll created for Glib.
+	# so, we have to break all this nice abstraction and encapsulation
+	# and find the actual Glib.dll and Glib.lib installed by perl when
+	# the Glib module was built, and add it to the list of lib files.
+	#
+	# say it with me: "i hate win32."
+
+	my $retstring = "";
+
+	use File::Find;
+
+	my %deps = $self->get_deps;
+	foreach my $mod (keys %deps) {
+		find (sub {
+			$retstring .= " ".$File::Find::name
+				if /$mod.lib/i;
+		}, @INC);
+	}
+
+	return $retstring;
+}

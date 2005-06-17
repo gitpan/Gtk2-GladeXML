@@ -1,3 +1,27 @@
+2005/06/17	kaffeetisch
+
+	* GladeXML.pm, META.yml, NEWS, README: stable release 1.005.
+
+2005/06/14	muppetman
+
+        * GladeXML.pm, AUTHORS: apply documentation patch from Marco
+        Antonio Manzo to demystify custom widget handling.
+
+2005/06/14	muppetman
+
+	* GladeXML.pm, AUTHORS: apply documentation patch from Grant McLean.
+
+2005/02/07 21:28 (-0500) muppetman
+
+	* Makefile.PL: Add a copy of the find_extra_libs hack from Gtk2's
+	Makefile.PL.  This ought to go into ExtUtils::Depends, but i haven't
+	found a fully portable solution.
+
+2005/02/07 21:22 (-0500) muppetman
+
+	* GladeXML.pm: Update docs to mention that the application is
+	responsible for calling Gnome2::Program::init in gnome apps.
+
 2005/01/17 20:44 (-0500) rwmcfa1
 
 	* GladeXML.pm, NEWS, README: stable bugfix release 1.004

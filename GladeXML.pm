@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.24 2005/01/18 01:47:46 rwmcfa1 Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.29 2005/06/17 17:33:16 kaffeetisch Exp $
 #
 # Based strongly on gtk-perl's GladeXML
 #
@@ -16,7 +16,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '1.004';
+our $VERSION = '1.005';
 
 sub import {
 	my $class = shift;
@@ -123,12 +123,21 @@ Gtk2::GladeXML - Create user interfaces directly from Glade XML files.
 
 =head1 SYNOPSIS
 
+  # for a pure gtk+ glade project
   use Gtk2 -init;
   use Gtk2::GladeXML;
-  
   $gladexml = Gtk2::GladeXML->new('example.glade');
   $gladexml->signal_autoconnect_from_package('main');
   $quitbtn = $gladexml->get_widget('Quit'); 
+  Gtk2->main;
+
+  # for glade files using gnome widgets, you must initialize Gnome2
+  # before loading the glade file.
+  use Gnome2;
+  use Gtk2::GladeXML;
+  # this call also initializes gtk+ for us
+  Gnome2::Program->init ($appname, $version);
+  $gladexml = Gtk2::GladeXML->new('gnomeapp.glade');
   Gtk2->main;
 
 =head1 ABSTRACT
@@ -184,14 +193,20 @@ Iterates over all signals and calls the given callback:
 The following two convenience methods use this to provide a more
 convenient interface.
 
-=item $gladexml->signal_autoconnect_from_package([PACKAGE])
+=item $gladexml->signal_autoconnect_from_package([PACKAGE or OBJECT])
 
 Sets up the signal handling callbacks as specified in the glade XML data.
-Callbacks will need to have the exact name as specified in the XML data
-and be located in the provided package (or the caller's package if none is
-provided).  It is worth noting that callbacks you get for free in c such
-as gtk_main_quit will not exist in perl and must always be defined, for
-example:
+
+The argument to this method can be a Perl package name or an object.  If a
+package name is used, each handler named in the Glade XML data will be called
+as a subroutine in the named package.  If an object is supplied each handler
+will be called as a method of the object.  If no argument is supplied, the name
+of the calling package will be used.  A user data argument cannot be supplied
+however this is seldom necessary when an object is used.
+
+The names of the subroutines or methods must exactly match the handler name in
+the XML data.  It is worth noting that callbacks you get for free in c such as
+gtk_main_quit will not exist in perl and must always be defined, for example:
 
   sub gtk_main_quit
   {
@@ -207,6 +222,39 @@ Iterates over all named signals and tries to connect them to the handlers
 specified as arguments (handlers not given as argument are being
 ignored). This is very handy when implementing your own widgets, where you
 can't use global callbacks.
+
+
+=item $widget = Gtk2::Glade->set_custom_handler ($callback[, $userdata])
+
+This method tells Gtk2::GladeXML how to create handlers for custom widgets.
+
+You can specify a "custom" widget in a glade file, which allows you to
+include in your interface widgets that Glade itself doesn't know how to
+create.  To tell libglade how to instantiate such widgets, you specify a
+"custom widget handler", a function which returns a Gtk2:Widget object
+for that custom widget.  This handler needs to be installed sometime
+before the instantiation of your Gtk2::GladeXML object, by calling
+C<set_custom_handler>.
+
+    my $widget = Gtk2::Glade->set_custom_handler( \&my_handler );
+    my $gladexml = Gtk2::GladeXML->new( 'MyApp.glade' );
+
+The prototype for the custom handler is:
+
+    sub my_handler {
+        my ($xml,       # The Gtk2::GladeXML object
+            # the remaining arguments are as specified in the glade file:
+            $func_name,	# The function name
+            $name,      # the name of the widget to be created
+            $str1,      # the string1 property
+            $str2,      # the string2 property
+            $int1,      # the int1 property
+            $int2,      # the int2 property
+            $userdata   # the data passed to set_custom_handler
+	   ) = @_;
+	...
+	return $widget; # a new Gtk2::Widget; you must call ->show on it.
+    }
 
 =back
 
@@ -225,6 +273,18 @@ list explains it best:
 
 http://lists.ximian.com/archives/public/glade-devel/2003-February/000015.html
 
+=item Why does my program crash on startup?
+
+Does your glade file use Gnome widgets?  If so, you must initialize Gnome
+manually; libglade can knows how to create gnome widgets, but can't know how
+you want to initialize the app.  This is usually sufficient:
+
+  use Gnome2;
+  Gnome2::Program->init ($app_name, $version_string);
+
+Libglade's API reference mentions this:
+http://developer.gnome.org/doc/API/2.0/libglade/libglade-modules.html
+
 =back
 
 =head1 SEE ALSO
@@ -237,10 +297,12 @@ The Libglade Reference Manual at http://developer.gnome.org/doc/API/2.0/libglade
 
 Ross McFarland <rwmcfa1 at neces dot com>, Marc Lehmann <pcg@goof.com>,
 muppet <scott at asofyet dot org>.  Bruce Alderson provided several examples.
+Grant McClean <grant at mclean dot net dot nz> and Marco Antonio Manzo
+<amnesiac at perl dot org dot mx> contributed documentation.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2004 by the gtk2-perl team.
+Copyright 2003-2005 by the gtk2-perl team.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Library General Public

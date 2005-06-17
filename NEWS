@@ -1,3 +1,9 @@
+Overview of Changes in Gtk2::GladeXML 1.005
+===========================================
+
+* Multiple documentation fixes and additions.
+* Win32 build fixes.
+
 Overview of Changes in Gtk2::GladeXML 1.004
 ===========================================
 

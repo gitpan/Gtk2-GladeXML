@@ -1,5 +1,5 @@
 /*
- * $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.xs,v 1.12 2004/11/28 17:24:36 rwmcfa1 Exp $
+ * $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.xs,v 1.13 2005/06/16 02:36:28 muppetman Exp $
  *
  */
 
@@ -197,7 +197,7 @@ glade_xml_relative_file (self, filename)
 
 MODULE = Gtk2::GladeXML	PACKAGE = Gtk2::Glade	PREFIX = glade_
 
-## probably shouldn't use these unless you know what you're doing
+## custom widget support
 
 ##  void glade_set_custom_handler(GladeXMLCustomWidgetHandler handler, gpointer user_data)
 void
