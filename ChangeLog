@@ -1,3 +1,29 @@
+2006-09-04	kaffeetisch
+
+	* GladeXML.pm, NEWS, README: Stable release 1.006.
+
+2006-09-04	kaffeetisch
+
+	* MANIFEST: Add the two new examples.
+
+	* MANIFEST, META.yml, Makefile.PL: Let EU::MM generate META.yml on
+	'make dist'.
+
+2006-08-26	kaffeetisch
+
+	* AUTHORS, examples/TODO, examples/clipboard.glade,
+	examples/clipboard.gladep, examples/clipboard.pl,
+	examples/dnd.glade, examples/dnd.gladep, examples/dnd.pl: Add the
+	examples Fabrice added to the SourceForge tracker two ages ago.
+
+2006/05/07	kaffeetisch
+
+	* GladeXML.xs: Hush a signedness warning.
+
+2005/09/28	kaffeetisch
+
+	* GladeXML.pm: Add a link to Grant's TPR article.
+
 2005/06/17	kaffeetisch
 
 	* GladeXML.pm, META.yml, NEWS, README: stable release 1.005.

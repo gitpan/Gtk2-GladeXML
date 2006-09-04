@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/Makefile.PL,v 1.19 2005/02/08 02:43:28 muppetman Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/Makefile.PL,v 1.20 2006/09/04 18:47:55 kaffeetisch Exp $
 #
 
 use strict;
@@ -17,6 +17,13 @@ our %build_reqs = (
 	'Glade'                   => '2.0.0',
 );
 
+our %pre_reqs = (
+	Glib::                => $build_reqs{'perl-Glib'},
+	Gtk2::                => $build_reqs{'perl-Gtk2'},
+	ExtUtils::Depends::   => $build_reqs{'perl-ExtUtils-Depends'},
+	ExtUtils::PkgConfig:: => $build_reqs{'perl-ExtUtils-PkgConfig'},
+);
+
 # Writing a fake Makefile ensures that CPAN will pick up the correct
 # dependencies and install them.
 unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
@@ -30,12 +37,7 @@ unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
    warn "$@\n";
    WriteMakefile(
          PREREQ_FATAL => 1,
-         PREREQ_PM    => {
-            Glib::                => $build_reqs{'perl-Glib'},
-            Gtk2::                => $build_reqs{'perl-Gtk2'},
-            ExtUtils::Depends::   => $build_reqs{'perl-ExtUtils-Depends'},
-            ExtUtils::PkgConfig:: => $build_reqs{'perl-ExtUtils-PkgConfig'},
-         },
+         PREREQ_PM    => \%pre_reqs,
    );
    exit 1; # not reached
 }
@@ -59,6 +61,7 @@ WriteMakefile(
     NAME          => 'Gtk2::GladeXML',
     VERSION_FROM  => 'GladeXML.pm',
     ABSTRACT_FROM => 'GladeXML.pm',
+    PREREQ_PM     => \%pre_reqs,
     XSPROTOARG    => '-noprototypes',
     $gladexml->get_makefile_vars,
 );

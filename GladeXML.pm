@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.29 2005/06/17 17:33:16 kaffeetisch Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.pm,v 1.31 2006/09/04 18:48:51 kaffeetisch Exp $
 #
 # Based strongly on gtk-perl's GladeXML
 #
@@ -16,7 +16,7 @@ require DynaLoader;
 
 our @ISA = qw(DynaLoader);
 
-our $VERSION = '1.005';
+our $VERSION = '1.006';
 
 sub import {
 	my $class = shift;
@@ -25,7 +25,7 @@ sub import {
 
 sub dl_load_flags { $^O eq 'darwin' ? 0x00 : 0x01 }
 
-bootstrap Gtk2::GladeXML $VERSION;
+Gtk2::GladeXML->bootstrap ($VERSION);
 
 sub _do_connect {
 	my ($object, $signal_name, $signal_data, $connect_object,
@@ -291,7 +291,11 @@ http://developer.gnome.org/doc/API/2.0/libglade/libglade-modules.html
 
 L<perl>(1), L<Glib>(3pm), L<Gtk2>(3pm)
 
-The Libglade Reference Manual at http://developer.gnome.org/doc/API/2.0/libglade/
+The Libglade Reference Manual at
+L<http://developer.gnome.org/doc/API/2.0/libglade/>
+
+An introductory article that originally appeared in The Perl Review:
+L<http://live.gnome.org/GTK2-Perl/GladeXML/Tutorial>
 
 =head1 AUTHOR
 
@@ -302,7 +306,7 @@ Grant McClean <grant at mclean dot net dot nz> and Marco Antonio Manzo
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003-2005 by the gtk2-perl team.
+Copyright 2003-2006 by the gtk2-perl team.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Library General Public

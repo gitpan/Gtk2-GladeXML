@@ -1,5 +1,5 @@
 /*
- * $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.xs,v 1.13 2005/06/16 02:36:28 muppetman Exp $
+ * $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/GladeXML.xs,v 1.14 2006/05/07 14:20:42 kaffeetisch Exp $
  *
  */
 
@@ -103,7 +103,7 @@ glade_xml_new_from_buffer (class, buffer, root=NULL, domain=NULL)
 	const char_ornull *root
 	const char_ornull *domain
     PREINIT:
-	int   len;
+	STRLEN len;
 	char *p;
     CODE:
     	p = SvPV(buffer, len);

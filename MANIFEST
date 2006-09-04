@@ -5,12 +5,17 @@ GladeXML.xs
 LICENSE
 MANIFEST			This list of files
 MANIFEST.SKIP
-META.yml			Module meta-data in YAML
 Makefile.PL
 NEWS
 README
 examples/README
 examples/TODO
+examples/clipboard.glade
+examples/clipboard.gladep
+examples/clipboard.pl
+examples/dnd.glade
+examples/dnd.gladep
+examples/dnd.pl
 examples/fileman.glade
 examples/fileman.gladep
 examples/fileman.pl
@@ -30,3 +35,4 @@ t/0.GladeXML.t
 t/custom.t
 t/example.glade
 t/more.t
+META.yml                                 Module meta-data (added by MakeMaker)

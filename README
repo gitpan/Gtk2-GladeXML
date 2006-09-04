@@ -1,5 +1,3 @@
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/README,v 1.18 2005/06/17 17:33:16 kaffeetisch Exp $
-
 Gtk2::GladeXML version 1.005
 ============================
 
@@ -13,6 +11,7 @@ http://gtk2-perl.sourceforge.net
 
 
 INSTALLATION
+------------
 
 To install this module type the following:
 
@@ -42,9 +41,10 @@ ways:
 
   in the code of your perl script:
     use lib '/some/other/place/lib/perl5/site_perl';
-  
+
 
 DEPENDENCIES
+------------
 
 This module requires these other modules and libraries:
 
@@ -59,9 +59,17 @@ In order to build it from source, you'll also need
   ExtUtils::PkgConfig >= 1.00
 
 
-COPYRIGHT AND LICENSE
+BUG REPORTS
+-----------
 
-Copyright (C) 2003-2004 by rwmcfa1 at neces dot com and the gtk2-perl team.
+Please report bugs to the gnome-perl product in GNOME's Bugzilla:
+<http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-perl>
+
+
+COPYRIGHT AND LICENSE
+---------------------
+
+Copyright (C) 2003-2006 by rwmcfa1 at neces dot com and the gtk2-perl team.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Library General Public
@@ -78,4 +86,4 @@ License along with this library; if not, write to the
 Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
 Boston, MA  02111-1307  USA.
 
-
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/README,v 1.19 2006/09/04 18:48:51 kaffeetisch Exp $

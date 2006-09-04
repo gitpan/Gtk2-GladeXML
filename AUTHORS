@@ -1,4 +1,3 @@
-
 The Gtk2-Perl Team - contact us at gtk-perl-list@gnome.org
 ================================================================
 muppet                   scott at asofyet dot org
@@ -14,8 +13,4 @@ James Curbo         hannibal at adtrw dot org
 Grant McLean        grant at mclean dot net dot nz
 Bruce Alderson
 Marco Antonio Manzo amnesiac at perl dot org dot mx
-
-several important bits of gtk2-perl were heavily inspired by pygtk, gtk-perl,
-and a good read-through of the gtk source code, so credit goes to those guys as
-well -- thanks!
-
+Fabrice             fabrice dot dub at free dot fr
