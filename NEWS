@@ -1,3 +1,8 @@
+Overview of changes in Gtk2::GladeXML 1.007
+===========================================
+
+* Depend on ExtUtils::Depends 0.300 for improved portability.
+
 Overview of changes in Gtk2::GladeXML 1.006
 ===========================================
 

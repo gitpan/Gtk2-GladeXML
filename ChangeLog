@@ -1,3 +1,15 @@
+2008-09-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* GladeXML.pm
+	* NEWS
+	* README: Stable release 1.007.
+
+2008-09-07  Torsten Schoenfeld  <kaffeetisch@gmx.de>
+
+	* Makefile.PL: Depend on ExtUtils::Depends 0.300 so that we can
+	remove our custom find_extra_libs hack.  Also play nice with CPAN
+	testers and exit with status 0 if we can't find libglade-2.0.
+
 2006-09-04	kaffeetisch
 
 	* GladeXML.pm, NEWS, README: Stable release 1.006.

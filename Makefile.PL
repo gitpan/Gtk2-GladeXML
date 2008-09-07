@@ -1,5 +1,5 @@
 #
-# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/Makefile.PL,v 1.20 2006/09/04 18:47:55 kaffeetisch Exp $
+# $Header: /cvsroot/gtk2-perl/gtk2-perl-xs/Glade/Makefile.PL,v 1.21 2008/09/07 20:05:50 kaffeetisch Exp $
 #
 
 use strict;
@@ -10,10 +10,10 @@ use ExtUtils::MakeMaker;
 
 # minimum required version of dependancies we need to build
 our %build_reqs = (
-	'perl-ExtUtils-Depends'   => '0.1',
-	'perl-ExtUtils-PkgConfig' => '1.0',
-	'perl-Glib'               => '1.02', # for Glib::MakeHelper 
-	'perl-Gtk2'               => '1.00',
+	'perl-ExtUtils-Depends'   => '0.300',
+	'perl-ExtUtils-PkgConfig' => '1.000',
+	'perl-Glib'               => '1.020', # for Glib::MakeHelper
+	'perl-Gtk2'               => '1.000',
 	'Glade'                   => '2.0.0',
 );
 
@@ -42,13 +42,21 @@ unless (eval "use ExtUtils::Depends '$build_reqs{'perl-ExtUtils-Depends'}';"
    exit 1; # not reached
 }
 
-our %pkgcfg = ExtUtils::PkgConfig->find ('libglade-2.0 >= '.$build_reqs{Glade});
+# If the package can't be found, warn and exit with status 0 to indicate to
+# CPAN testers that their system is not supported.
+our %pkgcfg;
+unless (eval { %pkgcfg = ExtUtils::PkgConfig->find ('libglade-2.0 >= '.$build_reqs{Glade});
+	       1; })
+{
+	warn $@;
+	exit 0;
+}
 
 mkdir 'build', 0777;
 
 my $gladexml = ExtUtils::Depends->new ('GladeXML', 'Gtk2', 'Glib');
 $gladexml->set_inc ($pkgcfg{cflags});
-$gladexml->set_libs ($pkgcfg{libs} . $gladexml->_find_extra_libs);
+$gladexml->set_libs ($pkgcfg{libs});
 $gladexml->add_pm ('GladeXML.pm' => '$(INST_LIBDIR)/GladeXML.pm');
 $gladexml->add_xs ('GladeXML.xs');
 my $cwd = cwd();
@@ -79,35 +87,4 @@ sub MY::postamble
 		'PERL_GLIB' => $build_reqs{'perl-Glib'},
 		'PERL_GTK' => $build_reqs{'perl-Gtk2'},
 	       );
-}
-
-
-# this probably needs to go into ExtUtils::Depends.
-sub ExtUtils::Depends::_find_extra_libs {
-	# right now we need this terrible hack only for windows.
-	return "" unless $^O eq "MSWin32";
-
-	my $self = shift;
-
-	# win32 does not allow unresolved symbols in libraries, but
-	# Gtk2 uses on symbols in the dll created for Glib.
-	# so, we have to break all this nice abstraction and encapsulation
-	# and find the actual Glib.dll and Glib.lib installed by perl when
-	# the Glib module was built, and add it to the list of lib files.
-	#
-	# say it with me: "i hate win32."
-
-	my $retstring = "";
-
-	use File::Find;
-
-	my %deps = $self->get_deps;
-	foreach my $mod (keys %deps) {
-		find (sub {
-			$retstring .= " ".$File::Find::name
-				if /$mod.lib/i;
-		}, @INC);
-	}
-
-	return $retstring;
 }
